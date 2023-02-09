@@ -1,0 +1,4 @@
+Here is the overided result :
+ This is first Text, This is second Text
+Here is the appended result by using optional parameter flag 'a':
+ This is first Text, This is second Text
