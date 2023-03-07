@@ -3,18 +3,20 @@ const app = express();
 const tasks = require("./routes/tasks");
 require("dotenv").config();
 const connectDB = require("./db/connect");
-//middleware
-app.use(express.json());
-
+const notFound = require("./middleware/not-found")
+const errorHandlerMiddleware = require("./middleware/error-handler")
 const port = 3000;
 
-//routes
-app.get("/hello", (req, res) => {
-  res.send("Task Manager App");
-});
+//middleware
+app.use(express.json());
+app.use(express.static("./public")); //to serve public files
 
-app.use("/api/v1/tasks", tasks);
- 
+//routes
+app.use("/api/v1/tasks", tasks); //frontend req -> app.use -> routes(tasks) ->controller(tasks) -> res
+
+//this error handle middleware should be at very bottom of all middlewares
+app.use(notFound) //to show error message when url is wrong
+app.use(errorHandlerMiddleware) //our custom errorHandlerMiddleware
 const start = async () => {
   try {
     await connectDB(process.env.MONGODB_URL);
