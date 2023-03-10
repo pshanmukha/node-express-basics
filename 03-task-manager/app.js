@@ -5,9 +5,12 @@ require("dotenv").config();
 const connectDB = require("./db/connect");
 const notFound = require("./middleware/not-found")
 const errorHandlerMiddleware = require("./middleware/error-handler")
+var cors = require('cors')
+
 const port = 3000;
 
 //middleware
+app.use(cors())
 app.use(express.json());
 app.use(express.static("./public")); //to serve public files
 

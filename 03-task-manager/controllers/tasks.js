@@ -23,6 +23,8 @@ const getSingleTasks = asyncWrapper (async (req, res, next) => {
 //to create task
 const createTask = asyncWrapper (async (req, res) => {
     const task = await Task.create(req.body);
+    //The HTTP 201 Created success status response code indicates 
+    //that the request has succeeded and has led to the creation of a resource
     res.status(201).json({ task });
 })
 
